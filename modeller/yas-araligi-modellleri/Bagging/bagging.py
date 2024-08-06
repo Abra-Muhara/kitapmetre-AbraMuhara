@@ -28,11 +28,8 @@ rf = RandomForestClassifier(n_estimators=100, random_state=42)
 bagging_model = BaggingClassifier(rf, n_estimators=50, random_state=42)
 bagging_model.fit(X_train, y_train)
 
-# Tahmin yap
 y_pred = bagging_model.predict(X_test)
 
-# Performansı değerlendir
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Doğruluk: {accuracy:.2f}")
 joblib.dump(bagging_model,"BAGGING.pkl")
-
