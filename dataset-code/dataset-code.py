@@ -95,7 +95,7 @@ def classify_sentence(sentence,state):
     probabilities = torch.softmax(logits, dim=-1)
     if(state==1):
         class_index = probabilities[0][1].item()
-        return class_index  # 0: not offensive, 1: offensive (assuming these are the labels)
+        return class_index
     return torch.argmax(probabilities, dim=-1).item()
 
 df = pd.DataFrame(columns=[
