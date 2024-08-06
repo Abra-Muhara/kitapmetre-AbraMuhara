@@ -56,7 +56,6 @@ rf_model = RandomForestClassifier(n_estimators=50, random_state=42)
 adaboost_model = AdaBoostClassifier(base_estimator=rf_model, n_estimators=50, random_state=42)
 bagging_model = BaggingClassifier(base_estimator=rf_model, n_estimators=50, random_state=42)
 
-# Meta (Stacking) modeli oluştur
 stacking_clf = StackingClassifier(
     estimators=[
         ('xgb', xgb_model),
@@ -65,23 +64,16 @@ stacking_clf = StackingClassifier(
         ('bagging', bagging_model)
     ],
     final_estimator=LogisticRegression(),
-    cv=5,  # Cross-validation katman sayısı
-    stack_method='auto',  # 'predict_proba' veya 'predict' ile tahminler
-    passthrough=True,  # Baz modellerin tahminlerini doğrudan meta modeline geçirme
+    cv=5,
+    stack_method='auto',
+    passthrough=True,
     n_jobs=-1  # Çoklu işlem
 )
 
-# Modeli eğit
 stacking_clf.fit(X_train, y_train)
 
-# Tahmin yap
 y_pred = stacking_clf.predict(X_test)
 
-# Performansı değerlendir
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Doğruluk: {accuracy:.2f}")
 joblib.dump(stacking_clf,"STACKING.pkl")
-
-
-
-
