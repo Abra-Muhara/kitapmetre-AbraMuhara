@@ -27,23 +27,20 @@ label_encoder = LabelEncoder()
 Y=label_encoder.fit_transform(rawY)
 X_train, X_test, y_train, y_test = train_test_split(rawX, Y, test_size=0.2, random_state=42)
 model = HistGradientBoostingClassifier(
-    max_iter=500,  # Maksimum iterasyon sayısı
-    learning_rate=0.2,  # Öğrenme oranı
-    max_depth=500,  # Ağaç derinliği
+    max_iter=500,
+    learning_rate=0.2,
+    max_depth=500,
     random_state=42
 )
 
-# Modeli eğit
 model.fit(X_train, y_train)
 
-# Tahmin yap
 y_pred = model.predict(X_test)
 
-# Performansı değerlendir
 accuracy = accuracy_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred, average='weighted')
 
-print(f'Histogram Tabanlı Gradient Boosting - Doğruluk: {accuracy:.2f}')
-print(f'Histogram Tabanlı Gradient Boosting - F1 Skoru: {f1:.2f}')
+print(f'Histogram Tabanlı Gradient Boosting - Doğruluk: {accuracy}')
+print(f'Histogram Tabanlı Gradient Boosting - F1 Skoru: {f1}')
 
 joblib.dump(model,"hist.pkl")
