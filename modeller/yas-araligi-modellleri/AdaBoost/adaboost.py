@@ -24,19 +24,14 @@ label_encoder = LabelEncoder()
 Y=label_encoder.fit_transform(rawY)
 X_train, X_test, y_train, y_test = train_test_split(rawX, Y, test_size=0.2, random_state=42)
 
-
-
 print("Adaboost")
 base_model = RandomForestClassifier(max_depth=100, random_state=42)
 
-# AdaBoost modelini oluştur
 adaboost_model = AdaBoostClassifier(base_model, n_estimators=50, random_state=42)
 adaboost_model.fit(X_train, y_train)
 
-# Tahmin yap
 y_pred = adaboost_model.predict(X_test)
 joblib.dump(adaboost_model,"ADABOOST.pkl")
-# Performansı değerlendir
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Doğruluk: {accuracy:.2f}")
 
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Doğruluk: {accuracy}")
