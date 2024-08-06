@@ -30,28 +30,24 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 
-# Temel modelleri oluştur
 xgb_model = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=42)
 rf_model = RandomForestClassifier(n_estimators=50, random_state=42)
 
-# AdaBoost ve Bagging modellerini oluştur
 adaboost_model = AdaBoostClassifier(base_estimator=rf_model, n_estimators=50, random_state=42)
 bagging_model = BaggingClassifier(base_estimator=rf_model, n_estimators=50, random_state=42)
 
-# Voting Classifier'ı oluştur
 voting_clf = VotingClassifier(estimators=[
     ('xgb', xgb_model),
     ('rf', rf_model),
     ('adaboost', adaboost_model),
     ('bagging', bagging_model)
-], voting='soft')  # Soft voting kullanıyoruz, 'hard' da olabilir
+], voting='soft')
 print("Soft voting with xgboost, random_forest, (adaboost,baggin with random forest)")
-# Modeli eğit
+
 voting_clf.fit(X_train, y_train)
 
-# Tahmin yap
 y_pred = voting_clf.predict(X_test)
 joblib.dump(voting_clf,"VOTING.pkl")
-# Performansı değerlendir
+
 accuracy = accuracy_score(y_test, y_pred)
-print(f"Doğruluk: {accuracy:.2f}")
+print(f"Doğruluk: {accuracy}")
