@@ -1,11 +1,9 @@
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.preprocessing import LabelEncoder
-import pickle
-from keras.models import load_model
-
 import re
+import pandas as pd
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
 import zemberek
+import emoji
 from zemberek import (
     TurkishSpellChecker,
     TurkishSentenceNormalizer,
@@ -13,32 +11,14 @@ from zemberek import (
     TurkishMorphology,
     TurkishTokenizer
 )
-
-ofansif_kelimeler = []
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'@[\w_]+', '', text)
+    text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+    text = emoji.replace_emoji(text, replace='')
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 morph = TurkishMorphology.create_with_defaults()
-
-kelime_path = "/content/ofansif.txt"
-
-with open(kelime_path, "r") as file:
-    ofansif_kelimeler = [line.strip() for line in file]
-
-print(ofansif_kelimeler)
-
-with open("/content/ModelData/vectorizer.pkl", "rb") as file:
-    vectorizer = pickle.load(file)
-model = load_model("/content/ModelData/ofansif_model.h5")
-
-
-def ofansif_model(metin):
-    global model
-    global vectorizer
-    new_texts = [metin]
-    new_X = vectorizer.transform(new_texts)
-
-    predictions = model.predict(new_X.toarray())
-    #print(f'Tahmin: {predictions[0][0]:.10f}')
-    return predictions[0][0]
-
 def kelime_analizi(word):
     results = morph.analyze(word)
     ans = ""
@@ -49,105 +29,117 @@ def kelime_analizi(word):
     except:
       return " "
 
-def ofansif_mi(cumle):
-    kelimeler = re.findall(r'\b\w+\b', cumle.lower())
-    return any(kelime_analizi(kelime) in ofansif_kelimeler for kelime in kelimeler)
 
-def metin_analizi(metin):
-    cumleler = re.split(r'(?<=[.!?]) +', metin)
-    toplam_cumle_sayisi = len(cumleler)
+# Heceleri sayma fonksiyonu
+def count_syllables(word):
+    vowels = "aeıioöuü"
+    syllables = 0
+    word = word.lower()
+    for char in word:
+        if char in vowels:
+            syllables += 1
+    return max(syllables, 1)
+dosya=open("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/ofansif.txt","r",encoding='utf-8')
+yasaKelimeler=dosya.read().split('\n')
+# Metni analiz etme fonksiyonu
+def analyze_text(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        text = file.read().replace('\n',' ')
+    text=clean_text(text)
+    sentences = re.split(r'[.!?]+', text)
+    sentences = [sentence.strip() for sentence in sentences if sentence]
 
-    kelimeler = re.findall(r'\b\w+\b', metin)
-    toplam_kelime_sayisi = len(kelimeler)
+    words = re.findall(r'\b\w+\b', text)
 
-    toplam_harf_sayisi = sum(len(kelime) for kelime in kelimeler)
+    syllable_count = sum(count_syllables(word) for word in words)
+    offensiveWordCount=0
+    for word in words:
+        root=kelime_analizi(word.lower())
+        root=root.lower()
+        if root in yasaKelimeler:
+            offensiveWordCount+=1
+    sentence_count = len(sentences)
+    word_count = len(words)
 
-    ofansif_cumle_sayisi = 0
-    ofansif_kelime_sayisi = 0
-    ofansif_kelime_seti = set()
-
-    for cumle in cumleler:
-        if ofansif_mi(cumle):
-            ofansif_cumle_sayisi += 1
-            #print(f"Ofansif Cümle: {cumle}")
-
-            cumledeki_kelimeler = re.findall(r'\b\w+\b', cumle.lower())
-            for kelime in cumledeki_kelimeler:
-                if kelime in ofansif_kelimeler:
-                    #print(f"Ofansif Kelime: {kelime}")
-                    ofansif_kelime_seti.add(kelime)
-                    ofansif_kelime_sayisi += 1
-
-    iyi_cumle_sayisi = toplam_cumle_sayisi - ofansif_cumle_sayisi
-    iyi_kelime_sayisi = toplam_kelime_sayisi - ofansif_kelime_sayisi
-    ortalama_kelime_sayisi = toplam_kelime_sayisi / toplam_cumle_sayisi if toplam_cumle_sayisi > 0 else 0
-    ortalama_harf_sayisi = toplam_harf_sayisi / toplam_kelime_sayisi if toplam_kelime_sayisi > 0 else 0
-
-    uygunsuzluk_orani = (ofansif_cumle_sayisi / toplam_cumle_sayisi) * 100 if toplam_cumle_sayisi > 0 else 0
-    uygunluk_orani = 100 - uygunsuzluk_orani
-    okunabilirlik_puani = 198.825 - ((40.175 * ortalama_harf_sayisi) - (2.610*ortalama_kelime_sayisi))
-    if okunabilirlik_puani < 0: okunabilirlik_puani = 0
-
-    ofansif_düzey = ofansif_model(metin)
-
+    avg_words_per_sentence = word_count / sentence_count if sentence_count > 0 else 0
+    avg_syllables_per_word = syllable_count / word_count if word_count > 0 else 0
+    avg_syllables_per_sentence = syllable_count / sentence_count if sentence_count > 0 else 0
+    avg_offensive_per_word = offensiveWordCount/word_count if word_count > 0 else 0
+    odds=offensiveWordCount/(word_count-offensiveWordCount) if (word_count-offensiveWordCount)>0 else 0
+    atesman_score = 198.825 - 40.175 * avg_syllables_per_word - 2.610 * avg_words_per_sentence
+    FRES= 206.835-(avg_words_per_sentence*1.015)+(avg_syllables_per_word*8.46)
+    cetinkaya_uzun = 118.823 - (25.987*avg_syllables_per_word)-(0.971*avg_words_per_sentence)
     return {
-        "Uygun Cümle Sayısı": iyi_cumle_sayisi,
-        "Uygunsuz Cümle Sayısı": ofansif_cumle_sayisi,
-        "Toplam Cümle Sayısı": toplam_cumle_sayisi,
-        "Uygun Kelime Sayısı": iyi_kelime_sayisi,
-        "Uygunsuz Kelime Sayısı": ofansif_kelime_sayisi,
-        "Toplam Kelime Sayısı": toplam_kelime_sayisi,
-        "Uygun Cümle Sayısının Toplam Cümle Sayısına Oranı": iyi_cumle_sayisi / toplam_cumle_sayisi if toplam_cumle_sayisi > 0 else 0,
-        "Uygun Cümle Sayısının Uygunsuz Cümle Sayısına Oranı" : iyi_cumle_sayisi / ofansif_cumle_sayisi if ofansif_cumle_sayisi > 0 else 100,
-        #"Toplam Kelime Sayısının Toplam Kelime Sayısına Oranı": toplam_kelime_sayisi / toplam_kelime_sayisi if toplam_kelime_sayisi > 0 else 0,
-        "Ortalama Cümledeki Kelime Sayısı": ortalama_kelime_sayisi,
-        "Ortalama Kelimedeki Harf Sayısı": ortalama_harf_sayisi,
-        "Uygunsuzluk Oranı (Yüzde)": uygunsuzluk_orani,
-        "Uygunluk Oranı (Yüzde)": uygunluk_orani,
-        "Uygunsuzluk Düzeyi": ofansif_düzey,
-        "Okunabilirlik Puanı (OP)" : okunabilirlik_puani
+        'sentences': sentences,
+        'sentence_count': sentence_count,
+        'word_count': word_count,
+        'syllable_count': syllable_count,
+        'avg_words_per_sentence': avg_words_per_sentence,
+        'avg_syllables_per_sentence': avg_syllables_per_sentence,
+        'atesman_score': atesman_score,
+        'offensive_word_count': offensiveWordCount,
+        'avg_offensive_per_word': avg_offensive_per_word,
+        'odds_offensive': odds,
+        'FRES':FRES,
+        'CetinKayaOP':cetinkaya_uzun
     }
 
-import pdfplumber
+tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/tokenizer")
+model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/model")
 
-def extract_text_from_pdf(pdf_path):
-  text = ""
+# Cümleyi sınıflandırma fonksiyonu
+def classify_sentence(sentence,state):
+    inputs = tokenizer(sentence, return_tensors="pt", truncation=True, padding=True)
+    outputs = model(**inputs)
+    logits = outputs.logits
+    probabilities = torch.softmax(logits, dim=-1)
+    if(state==1):
+        class_index = probabilities[0][1].item()
+        return class_index  # 0: not offensive, 1: offensive (assuming these are the labels)
+    return torch.argmax(probabilities, dim=-1).item()
 
-  with pdfplumber.open(pdf_path) as pdf:
-    start_page = 3
-    end_page = len(pdf.pages) - 1
-    for i in range(start_page - 1, end_page):
-      page = pdf.pages[i]
-      text += page.extract_text()
-  return text
-
-
+df = pd.DataFrame(columns=[
+    'Dosya Adı', 'Cümle Sayısı', 'Hece Sayısı', 'Cümle Başına Ortalama Kelime Sayısı',
+    'Cümle Başına Ortalama Hece Sayısı', 'Ateşman Okunabilirlik Puanı', 'Ofansif Cümle Sayısı',
+    'Ofansif Cümle Oranı', 'Ofansif Cümle Yüzdesi','Ofansif Kelime Sayısı','Ofansif Kelime Oranı','Kelime Sayısı',
+    'Ofansif Kelime Sayısının Ofansif Olmayan Kelime Sayısına oranı','FRES','CetinKayaUzun','Offensive General'
+])
 import os
 
-excel_path = '/content/Dataset.xlsx'
+folder_path = 'C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/BookData/Yas15-18'
+file_paths = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+print(file_paths)
+for file_path in file_paths:
+    print(file_path)
+    result = analyze_text(file_path)
+    temp=0
+    offensive_count=0
+    for sentence in result['sentences']:
+        temp+=classify_sentence(sentence,1)
+        offensive_count+=classify_sentence(sentence,0)
+    offensive_general= temp/result['sentence_count']
+    offensive_ratio = offensive_count / result['sentence_count'] if result['sentence_count'] > 0 else 0
+    offensive_by_non_offensive = offensive_count/(result['sentence_count']-offensive_count)
 
-df = pd.read_excel(excel_path)
+    df = df.append({
+        'Dosya Adı': file_path,
+        'Cümle Sayısı': result['sentence_count'],
+        'Hece Sayısı': result['syllable_count'],
+        'Cümle Başına Ortalama Kelime Sayısı': result['avg_words_per_sentence'],
+        'Cümle Başına Ortalama Hece Sayısı': result['avg_syllables_per_sentence'],
+        'Ateşman Okunabilirlik Puanı': result['atesman_score'],
+        'Ofansif Cümle Sayısı': offensive_count,
+        'Ofansif Cümle Oranı': offensive_ratio,
+        'Ofansif Cümle Yüzdesi': offensive_by_non_offensive,
+        'Ofansif Kelime Sayısı': result['offensive_word_count'],
+        'Ofansif Kelime Oranı': result['avg_offensive_per_word'],
+        'Kelime Sayısı': result['word_count'],
+        'Ofansif Kelime Sayısının Ofansif Olmayan Kelime Sayısına oranı': result['odds_offensive'],
+        'FRES': result['FRES'],
+        'CetinKayaUzun': result['CetinKayaOP'],
+        'Offensive General': offensive_general
 
-kitap_isimleri = df['Kitap Adı'].tolist()
+    }, ignore_index=True)
 
-folder_path = '/content/BookData'
-
-dosya_isimleri = os.listdir(folder_path)
-
-print("Başladı")
-
-for kitap_ismi in kitap_isimleri:
-    for dosya_ismi in dosya_isimleri:
-        if kitap_ismi.lower() in dosya_ismi.lower():
-            kitap_path = os.path.join(folder_path, dosya_ismi)
-            print(f"Eşleşen Kitap: {kitap_path}")
-
-            book = extract_text_from_pdf(kitap_path)
-            sonuc = metin_analizi(book)
-            index = df.index[df['Kitap Adı'] == kitap_ismi].tolist()[0]
-            for anahtar, deger in sonuc.items():
-                df.at[index, anahtar] = deger
-
-            df.to_excel(excel_path, index=False)
-
-            break
+    excel_path = 'results.xlsx'
+    df.to_excel(excel_path, index=False)
