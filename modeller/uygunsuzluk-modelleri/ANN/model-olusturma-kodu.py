@@ -10,8 +10,8 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import *
 
-data = pd.read_csv("/kaggle/input/turkish-offensive-language-detection/train.csv")
-test_data = pd.read_csv("/kaggle/input/turkish-offensive-language-detection/test.csv")
+data = pd.read_csv("twitter-veri-seti/train.csv")
+test_data = pd.read_csv("twitter-veri-seti/test.csv")
 
 #data['label'] = data['label'].map({'0': 0, '1': 1})
 #test_data['label'] = test_data['label'].map({'0': 0, '1': 1})

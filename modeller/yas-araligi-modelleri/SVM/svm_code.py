@@ -1,6 +1,6 @@
 import pandas as pd
 
-file_path = '/content/Final.xlsx'
+file_path = 'kitap-veri-seti/Final.xlsx'
 data = pd.read_excel(file_path)
 
 from sklearn.model_selection import train_test_split

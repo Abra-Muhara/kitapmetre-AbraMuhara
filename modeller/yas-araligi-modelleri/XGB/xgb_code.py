@@ -2,7 +2,7 @@ import xgboost as xgb
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
-file_path = '/content/Final.xlsx'
+file_path = 'kitap-veri-seti/Final.xlsx'
 data = pd.read_excel(file_path)
 
 X = data.drop(columns=['Dosya Adı', 'Önerilen Yaş Aralığı'])
