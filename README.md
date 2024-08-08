@@ -1,6 +1,3 @@
-
-
-
 # kitapmetre-2024AcikHackTDDI
 
 ## Bu proje Teknofest Doğal Dil İşleme Yarışması için yapılmıştır.
@@ -18,22 +15,28 @@
   Hugging Face: https://huggingface.co/AbraMuhara
   
   Github: https://github.com/Abra-Muhara
+  
+  Demo Videonun Linki: https://youtu.be/9p1tD68zZGM?si=8WPXhtJwMStNfqwl
+  
 ## Takım üyeleri:
   Fatih Kürşat Cansu(Danışman)
   
   Şuayp Talha Kocabay(Kaptan): https://github.com/suayptalha
   
   Mehmet Kağan Albayrak(Üye): https://github.com/TFLkedimestan
+  
 ## Problem:
   Ele  alınan problem, özellikle  çocuk ve genç okurlar için  uygun  kitapların  seçilmesi  sürecindeki eğitimcilerin ve yetişkinlerin yaşadıkları belirsizliktir.
 
 Kitapların  içerdiği  dil, temalar  ve  uygunsuz  öğeler, yaş  gruplarına  göre  farklı  etkiler  yaratmaktadır.
 
 Bu bağlamda, öğretmenler, kütüphaneciler, ebeveynler  ve okurlar için  kitapların  içeriklerinin  değerlendirilmesi  ve  uygunluk  derecelerinin  belirlenmesi  oldukça  önem  arz etmektedir
+
 ## Projenin Tanımı:
 Bu proje, kullanıcıların sisteme yükledikleri Türkçe kitapların PDF dosyalarını analiz ederek kitapların uygun yaş aralıklarını, içerilerinde kaç uygunsuz cümle ve kelime geçtiği vb. bilgileri belirlemeyi ve bunları kullanıcıya bildirmeyi amaçlayan bir uygulamadır.
 
 Bu projenin ana teması, kitapların içerdiği dil ve temaların uygunluğunu değerlendirerek okurların ve eğitimcilerin doğru seçimler yapmasını sağlamaktır. Elde edilen bulgular doğrultusunda proje bu amaca yüksek bir doğrulukla ulaşmaktadır.
+
 ## Projenin Sağladığı Çözüm ve Hedef Kitlesi
 Bu proje kitapların içeriğini analiz ederek kitaplar hakkında çeşitli bilgiler ve sonuçlar çıkartıp bunları kullanıcıya vermektedir. Bu sayede kullanıcı okuyacağı veya önereceği kitap hakkında derinlemesine bilgi sahibi olmaktadır. Uygulamanın verdiği yaş aralığı sayesinde uygun kitapları önerebilecek veya okuyabilecektir.
 
@@ -50,7 +53,9 @@ Bu projenin hedef kitlesi şunlardır:
 •Çocuklarına kitap önerecek olan ebeveynler,
 
 •Okurlar.
+
 ## Proje İş Akışı
+
 ![Projenin başarıyla tamamlanması için gereken görevlerin ve süreçler](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/workflow.png)
 
 ## Projemizin Aşamaları:
@@ -64,14 +69,76 @@ Projemizin Aşamaları:
   5. Uygulama aracılığıyla kullanıcıya kitap hakkında elde edilen verilerin bildirilmesi.
   
 ## Veri Seti ve Araçlar
-Kitap Veri Seti Oluşturma Aracı Web Sitesi Linki:
-https://kitapmetre-veri-seti-araci.glitch.me
+### Uygunsuzluk Modeli Veri Seti
+**kaggle.com/datasets/toygarr/turkish-offensive-language-detection**
+Bu proje için 2 adet veri seti kullanılmıştır. Bunlardan biri Kaggle’dan alınmış olup kullanıcıların Twitter üzerinde paylaştığı ve ‘‘ofansif’’ veya ‘‘ofansif değil’’ olarak sınıflandırılan gönderilerin bulunduğu bir veri setidir. Bu veri setiyle metinlerin ofansif olup olmadığını bulan bir model oluşturulmuştur.
 
-Yaş Aralığı Sınıflandırma: https://huggingface.co/AbraMuhara/RandomForestAgeClassificationTDDI2024
+İçerisinde;
+
+•42.398 adet eğitim verisi,
+
+•8.851 adet test verisi,
+
+•1.756 adet doğrulama verisi bulunmaktadır.
+
+![Veri Seti Veri Dağılımı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/set-dagilim.png)
+
+Veri Seti Veri Dağılımı
+
+
+![Eğitim Seti Veri Dağılımı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/egitim_set.png)
+
+Eğitim Seti Veri Dağılımı
+
+
+![Test Seti Veri Dağılımı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/test_set.png)
+
+Test Seti Veri Dağılımı
+
+
+![Doğrulama Seti Veri Dağılımı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/valid_set.png)
+
+Doğrulama Seti Veri Dağılımı
+
+### Yaş Aralığı Modeli Veri Seti
+Bir diğer veri seti, kelime listesi ve bir önceki veri setiyle oluşturan model ile sıfırdan oluşturulmuştur.
+
+İçerisindeki veriler şunlardır:
+
+•Cümle, kelime  ve hece sayısı;
+
+•Cümle başına ortalama kelime ve hece sayısı;
+
+•Ofansif cümle sayısı, oranı ve yüzdesi;
+
+•Ofansif kelime sayısı ve oranı;
+
+•Ofansif kelime sayısının ofansif olmayan kelime sayısına oranı;
+
+•Ortalama cümle ofansifliği;
+
+•FRES, COE ve Ateşman okunulabilirlik puanları;
+
+•Önerilen yaş aralığı.
+
+İçerisinde toplam 113 adet kitabın verisi bulunmaktadır.
+
+![Veri Seti Yaş Aralığı Dağılımı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/yas_araligi_dagilim.png)
+
+Veri Seti Yaş Aralığı Dağılımı
+
+
+![enter image description here](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/yas_veri_ornek.png)
+
+Veri Setinden Bir Örnek
+
+## Modellerin Oluşturulması
+### Modellerin Linkleri
+Yaş Aralığı Sınıflandırma: https://huggingface.co/AbraMuhara/AgeClassificationTDDI2024
 
 Uygunsuz Cümle Sınıflandırma: https://huggingface.co/AbraMuhara/Fine-TunedBERTURKOfansifTespit
 
-## Modellerin Oluşturulması
+### Uygunsuzluk Modelleri
 Metinlerin uygunsuzluğunu ölçen model için çeşitli mimariler kullanılmıştır.
 Bunlar:
 
@@ -83,23 +150,86 @@ Bahsi geçen modellerden ilki olan ve metinlerin uygunsuzluk düzeylerini ölçe
 ![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ann.png)
 
 •RNN:
-
 Ardından 4 GRU (Geçitli Tekrarlayan Birim) katmanlı bir RNN (Yinelemeli Sinir Ağı) oluşturulmuştur. Optimizasyon algoritması olarak aşırı öğrenmeyi azaltıp daha hızlı ve kararlı öğrenme sağlayan AdamW kullanılmıştır. İlk olarak 4 epoch’a kadar eğitilmiştir. Ardından Early Stopping kullanılmış ve 6. epoch’ta  loss arttığı için eğitim durdurulmuştur. Model %89,83 doğrulukla çalışmaktadır. Ancak BERT ile yapılan model daha yüksek doğrulukla çalıştığı için bu modeli kullanılmamıştır.
 
 ![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/rnn.png)
 
 ![Çeşitli Epoch Değerlerinde RNN Modelinin Doğruluk Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/accuracy.png)
 
-![Çeşitli Epoch Değerlerinde RNN Modelininin Kayıp Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/loss.png)
+![Çeşitli Epoch Değerlerinde RNN Modelinin Kayıp Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/loss.png)
 
 •BERT:
+**"bert-base-uncased"**
+Ardından BERT ile fine-tuning kullanarak yeni bir model oluşturulmuştur. Bu model ilk olarak 3 epoch ile ardından 5 epoch ile eğitilmiş fakat doğruluğun artmamasından dolayı 3 epoch kullanan model tercih edilmiştir. Optimizasyon algoritması olarak tekrardan AdamW kullanılmıştır. Model’in f1 doğruluğu %91’dir. Fakat BERT-Turkish ile yapılan modelin doğruluğu daha yüksek olduğu için tercih edilmemiştir.
+
+![Modelin Değerlendirmesi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/bert-accuracy.png)
+
+![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/bert-param.png)
 
 •BERT-Turkish:
+**"dbmdz/bert-base-turkish-128k-uncased"**
+Ardından BERT-Turkish ile fine-tuning kullanarak yeni bir model oluşturuldu. BERT-Turkish, Kemal Oflazer tarafından 128k’lık bir kelime haznesi ile BERT’in üzerine eğitilen bir modeldir. Optimizasyon algoritması olarak tekrardan AdamW kullanılmıştır. Model’in f1 doğruluğu %93’dir. En yüksek doğruluğa sahip model olmasından dolayı uygunsuzluk modeli olarak bu model kullanılmıştır.
+
+![Modelin Değerlendirmesi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/bert-tr-accuracy.png)
+
+![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/bert-tr-params.png)
+
+Bu modellerin doğrulukları aşağıdadır.
+
+![Farklı Model Mimarilerinde Uygunsuzluk Modelinin Doğruluk Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/offensive-accuracies.png)
+
+### Yaş Aralığı Modeli
+Yaş aralığı modeli için oluşturulmuş olan veri seti kullanılmıştır. Modeli oluşturmak için çeşitli makine öğrenmesi ve sinir ağı algoritmaları denenmiştir ve aralarında %95,65 ile en yüksek doğruluğa sahip olan Optuna ile optimize edilmiş CatBoost algoritması seçilmiştir. CatBoost, özellikle kategorik verileri otomatik olarak işleyebilmesi sayesinde veri ön işleme sürecini büyük ölçüde kolaylaştıran bir makine öğrenmesi algoritmasıdır. Optuna ise modellerin performansını artırmak için gereken hiperparametrelerin en iyi şekilde ayarlanmasını sağlar.
+
+![Modelin Değerlendirmesi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/catboost-accuracy.jpg)
+
+![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/catboost-param.jpg)
+
+Ayrıca diğer makine öğrenmesi algoritmalarının yüzde kaç doğruluk verdiği aşağıdadır.
+
+![Farklı Model Mimarilerinde Uygunsuzluk Modelinin Doğruluk Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/accuracies.png)
+
+## Okunulabilirlik Puanları
+Okunulabilirlik puanları, yapılan araştırmalar sonucu bir metnin farklı dillerde okunulabilirlik endeksini ve farklı yaş aralıkları için okunulabilirlik düzeylerini tespit etmek için oluşturulmuş formüllerdir.
+
+Bunlardan en popüler olanları şunlardır:
+
+•COE (Çetinkaya Okunulabilirlik Endeksi):
+
+$118,823 -(25,987 ∗ASW )-(0,971 ∗AWS)$  (Çetinkaya, 2008)
+
+•Ateşman Puanı:
+
+$198,825 -40,175 ∗ASW -2,610 ∗AWS$ (Ateşman, 1997)
+
+•FRES (Flesch  Okunulabilirlik Skoru):
+
+$206,835 -(AWS ∗1,015)+(ASW ∗8,46)$ (Flesch, 1948)
+
+*$AWS$ = Cümle başına ortalama kelime sayısı
+
+*$ASW$ = Kelime başına ortalama hece sayısı
+
+## Proje Yol Haritası
+Projede oluşturulan modeller FastAPI, Hugging  Face ve Github platformlarına yüklenmiştir. İlerleyen süreçte açık kaynak kodlu olan bu platformlar üzerinden kullanıcılar tarafından geliştirilebilir. Ayrıca proje halk kütüphanelerinde kullanıma sunulabilir.
+
+Projede geliştirilebilecek konular şunlardır:
+
+•Veri setinde kullanılan kitap sayısı artırılabilir ve daha yüksek doğruluk elde edilebilir.
+
+•Ofansif kelime listesindeki kelime sayısı artırılabilir ve daha yüksek doğruluk elde edilebilir.
+
+•Uygunsuzluğu ölçen model daha büyük NLP modelleri ile eğitilip daha tutarlı sonuçlar alınabilir.
+
+Veri setinde kullanılan kitap sayısının artırılabilmesi için kullanıcıların veri setinde kullanılabilmesi için kitap yükleyebileceği demo bir web sitesi oluşturulmuştur. Bu web sitesinden kullanıcılar farklı kitapları ve bu kitapların yaş aralıklarını yükleyerek veri setini büyütebilir ve daha yüksek doğruluk elde edilmesini sağlayabilir.
+
+Web sitesi linki: 
+https://kitapmetre-veri-seti-araci.glitch.me
+
+![KitapMetre Veri Seti Aracı](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/veri-seti-arac.png)
 
 
-Bu 
-
-Kaynakçalar:
+## Kaynakçalar:
 ATEŞMAN, Ender. (1997). Türkçe’de okunabilirliğin Ölçülmesi. A.Ü. 		 					Tömer Dil Dergisi, sayı:58,s.171-174.
 
 Cetinkaya, B. (2008). Türkçe Metinlerde Okunabilirlik Analizi.
