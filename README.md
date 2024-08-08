@@ -28,7 +28,9 @@ Projemizin Aşamaları:
   3. İlk 2 aşamada elde ettiğimiz verilerin yanı sıra Cümle Sayısı, Hece Sayısı, Cümle Başına Ortalama Kelime Sayısı, Cümle Başına Ortalama Hece Sayısı, Ateşman OP(Okunabilirlik Puanı), Uygunsuz Cümle Sayısı, Uygunsuz Cümle Sayısının Toplam Cümle Sayısına Oranı, Uygunsuz Cümle Yüzdesi, Uygunsuz Kelime Sayısı, Uygunsuz Kelime Sayısının Toplam Kelime Sayısına Oranı, Uygunsuz Kelime Sayısının Uygunsuz Olmayan Kelime Sayısına oranı, FRES Puanı, Çetinkaya Uzun OP ve Ortalama Cümle Uygunsuzluk Değeri ile yaş konusunda sınıflandırma yapmaktır.
  ## Projedeki modellerin açıklaması
  1. Cümlelerin Uygunsuzluklarını ölçmek:
-	 2. **ANN**:
+	 1. **ANN**:
+
+
 
 	![ANN Mimarisi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ofansif_model.h5.png)
 
