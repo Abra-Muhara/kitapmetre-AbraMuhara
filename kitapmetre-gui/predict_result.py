@@ -26,7 +26,7 @@ dosya = open("uygunsuz-kelime-listesi/ofansif.txt", "r", encoding='utf-8')
 yasaKelimeler = dosya.read().split('\n')
 dosya.close()
 rf = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/random_forest_model.pkl")
-label_encoder = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/random_forest_label_encoder.pkl")
+label_encoder = joblib.load("modeller/yas-araligi-modelleri/Random Forest (Kullanılan)/random_forest_label_encoder.pkl")
 
 
 def clean_text(text):
