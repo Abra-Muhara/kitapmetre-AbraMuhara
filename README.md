@@ -30,8 +30,7 @@ Projemizin Aşamaları:
  1. Cümlelerin Uygunsuzluklarını ölçmek:
 	 2. **ANN**:
 
-
-		 3. ![ANN Mimarisi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ofansif_model.h5.png)
+	![ANN Mimarisi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ofansif_model.h5.png)
 
   
 ## Veri Seti ve Araçlar
