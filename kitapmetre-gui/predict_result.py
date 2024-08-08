@@ -28,7 +28,7 @@ yasaKelimeler = dosya.read().split('\n')
 dosya.close()
 
 catboost_model = CatBoostClassifier()
-catboost_model.load_model("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/best_catboost_model.cbm")
+catboost_model.load_model("modeller/yas-araligi-modelleri/Catboost (Kullanılan)/catboost_model.cbm")
 label_encoder = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/cb_label_encoder.pkl")
 
 
