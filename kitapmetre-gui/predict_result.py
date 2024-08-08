@@ -22,7 +22,7 @@ tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved
 model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_model")
 
 morph = TurkishMorphology.create_with_defaults()
-dosya = open("C:/Users/PC/Desktop/kitap_proje/ofansif.txt", "r", encoding='utf-8')
+dosya = open("uygunsuz-kelime-listesi/ofansif.txt", "r", encoding='utf-8')
 yasaKelimeler = dosya.read().split('\n')
 dosya.close()
 rf = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/random_forest_model.pkl")
