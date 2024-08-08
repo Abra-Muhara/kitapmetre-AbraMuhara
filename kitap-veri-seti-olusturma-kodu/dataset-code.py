@@ -106,7 +106,7 @@ df = pd.DataFrame(columns=[
 ])
 import os
 
-folder_path = 'C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/BookData/Yas15-18'
+folder_path = 'kitaplar/txt'
 file_paths = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
 print(file_paths)
 for file_path in file_paths:
