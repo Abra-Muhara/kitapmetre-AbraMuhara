@@ -19,7 +19,7 @@ from zemberek import (
 import pdfplumber
 
 tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_tokenizer")
-model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_model")
+model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
 
 morph = TurkishMorphology.create_with_defaults()
 dosya = open("uygunsuz-kelime-listesi/ofansif.txt", "r", encoding='utf-8')
