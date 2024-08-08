@@ -7,6 +7,7 @@
 
 ## Takım Bilgileri:
 ![Takım logosu](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ABRA%20MUHARA.png)
+
   Takım Adı: Abra Muhara
   Takım ID: #561838
   Başvuru ID: #2290264
