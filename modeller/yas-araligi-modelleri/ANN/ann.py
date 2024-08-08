@@ -9,7 +9,7 @@ from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
-rawData = pd.read_excel("Final.xlsx")
+rawData = pd.read_excel("kitap-veri-seti/Final.xlsx")
 rawY = rawData["Önerilen Yaş Aralığı"]
 rawX = rawData.drop(["Dosya Adı", "Önerilen Yaş Aralığı"], axis=1)
 

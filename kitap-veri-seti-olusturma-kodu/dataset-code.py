@@ -39,7 +39,7 @@ def count_syllables(word):
         if char in vowels:
             syllables += 1
     return max(syllables, 1)
-dosya=open("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/ofansif.txt","r",encoding='utf-8')
+dosya=open("uygunsuz-kelime-listesi/ofansif.txt","r",encoding='utf-8')
 yasaKelimeler=dosya.read().split('\n')
 # Metni analiz etme fonksiyonu
 def analyze_text(file_path):
@@ -84,8 +84,8 @@ def analyze_text(file_path):
         'CetinKayaOP':cetinkaya_uzun
     }
 
-tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/tokenizer")
-model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/model")
+tokenizer = AutoTokenizer.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/tokenizer")
+model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
 
 # Cümleyi sınıflandırma fonksiyonu
 def classify_sentence(sentence,state):
@@ -106,7 +106,7 @@ df = pd.DataFrame(columns=[
 ])
 import os
 
-folder_path = 'C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/BookData/Yas15-18'
+folder_path = 'kitaplar/txt'
 file_paths = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
 print(file_paths)
 for file_path in file_paths:

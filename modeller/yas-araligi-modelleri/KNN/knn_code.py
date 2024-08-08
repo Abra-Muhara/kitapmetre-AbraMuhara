@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
-file_path = '/content/Final.xlsx'
+file_path = 'kitap-veri-seti/Final.xlsx'
 data = pd.read_excel(file_path)
 
 X = data.drop(columns=['Dosya Adı', 'Önerilen Yaş Aralığı'])
