@@ -18,7 +18,7 @@ from zemberek import (
 )
 import pdfplumber
 
-tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_tokenizer")
+tokenizer = AutoTokenizer.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/tokenizer")
 model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
 
 morph = TurkishMorphology.create_with_defaults()
