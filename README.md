@@ -9,10 +9,12 @@
   Takım ID: #561838
   Başvuru ID: #2290264
   Hugging Face: https://huggingface.co/AbraMuhara
+  
   Github: https://github.com/Abra-Muhara
 ## Takım üyeleri:
   Fatih Kürşat Cansu(Danışman)
   Şuayp Talha Kocabay(Kaptan): https://github.com/suayptalha
+  
   Mehmet Kağan ALBAYRAK(Üye): https://github.com/TFLkedimestan
 ## Problem:
   Ele  alınan problem, özellikle  çocuk ve genç okurlar için  uygun  kitapların  seçilmesi  sürecindeki eğitimcilerin ve yetişkinlerin yaşadıkları belirsizliktir.
