@@ -29,7 +29,7 @@ dosya.close()
 
 catboost_model = CatBoostClassifier()
 catboost_model.load_model("modeller/yas-araligi-modelleri/Catboost (Kullanılan)/catboost_model.cbm")
-label_encoder = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/cb_label_encoder.pkl")
+label_encoder = joblib.load("modeller/yas-araligi-modelleri/Catboost (Kullanılan)/cb_label_encoder.pkl")
 
 
 def clean_text(text):
