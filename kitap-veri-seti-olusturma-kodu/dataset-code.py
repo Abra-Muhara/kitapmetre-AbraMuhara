@@ -85,7 +85,7 @@ def analyze_text(file_path):
     }
 
 tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/tokenizer")
-model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/model")
+model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
 
 # Cümleyi sınıflandırma fonksiyonu
 def classify_sentence(sentence,state):
