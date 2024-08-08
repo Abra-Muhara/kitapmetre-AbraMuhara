@@ -6,6 +6,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import emoji
 import numpy as np
+from catboost import CatBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 import joblib
@@ -18,15 +19,17 @@ from zemberek import (
 )
 import pdfplumber
 
-tokenizer = AutoTokenizer.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/tokenizer")
-model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
+tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_tokenizer")
+model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_model")
 
 morph = TurkishMorphology.create_with_defaults()
-dosya = open("uygunsuz-kelime-listesi/ofansif.txt", "r", encoding='utf-8')
+dosya = open("C:/Users/PC/Desktop/kitap_proje/ofansif.txt", "r", encoding='utf-8')
 yasaKelimeler = dosya.read().split('\n')
 dosya.close()
-rf = joblib.load("modeller/yas-araligi-modelleri/Random Forest (Kullanılan)/random_forest_model.pkl")
-label_encoder = joblib.load("modeller/yas-araligi-modelleri/Random Forest (Kullanılan)/random_forest_label_encoder.pkl")
+
+catboost_model = CatBoostClassifier()
+catboost_model.load_model("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/best_catboost_model.cbm")
+label_encoder = joblib.load("C:/Users/PC/Desktop/kitap_proje/yas-araligi-model/cb_label_encoder.pkl")
 
 
 def clean_text(text):
@@ -169,7 +172,7 @@ def predict_ans(file_path):
 
     df_for_prediction = df.drop(["Dosya Adı"], axis=1)
 
-    predictions = rf.predict(df_for_prediction)
+    predictions = catboost_model.predict(df_for_prediction)
 
     predicted_labels = label_encoder.inverse_transform(predictions)
 
