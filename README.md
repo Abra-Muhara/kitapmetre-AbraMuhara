@@ -14,7 +14,7 @@
   Takım ID: #561838
   
   Başvuru ID: #2290264
-  
+  @suayptalha
   Hugging Face: https://huggingface.co/AbraMuhara
   
   Github: https://github.com/Abra-Muhara
