@@ -19,11 +19,11 @@ from zemberek import (
 )
 import pdfplumber
 
-tokenizer = AutoTokenizer.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_tokenizer")
-model = AutoModelForSequenceClassification.from_pretrained("C:/Users/PC/Desktop/kitap_proje/saved_model")
+tokenizer = AutoTokenizer.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/tokenizer")
+model = AutoModelForSequenceClassification.from_pretrained("modeller/uygunsuzluk-modelleri/BERTURK-FineTuned/model")
 
 morph = TurkishMorphology.create_with_defaults()
-dosya = open("C:/Users/PC/Desktop/kitap_proje/ofansif.txt", "r", encoding='utf-8')
+dosya = open("uygunsuz-kelime-listesi/ofansif.txt", "r", encoding='utf-8')
 yasaKelimeler = dosya.read().split('\n')
 dosya.close()
 
