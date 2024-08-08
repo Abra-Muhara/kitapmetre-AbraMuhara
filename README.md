@@ -1,5 +1,6 @@
 
 
+
 # kitapmetre-2024AcikHackTDDI
 
 ## Bu proje Teknofest Doğal Dil İşleme Yarışması için yapılmıştır.
@@ -60,15 +61,7 @@ Projemizin Aşamaları:
   2. İnce ayar yapılmış **BERTURK** ile cümleleri uygunsuzluklarına göre sınıflandırması.
   3. **Kendi yazdığımız kelime listesi** ile kelimeleri uygunsuzluklarına göre sınıflandırması.
   4. İlk 2 aşamada elde ettiğimiz verilerin yanı sıra kitapların cümle sayısı, hece sayısı, cümle başına ortalama kelime sayısı, cümle başına ortalama hece sayısı, Ateşman OP(Okunabilirlik Puanı), uygunsuz cümle sayısı, uygunsuz cümle sayısının toplam cümle sayısına oranı, uygunsuz cümle yüzdesi, uygunsuz kelime sayısı, uygunsuz kelime sayısının toplam kelime sayısına oranı, uygunsuz kelime sayısının uygunsuz olmayan kelime sayısına oranı, FRES puanı, Çetinkaya Uzun okunulabilirlik puanı ve ortalama cümle uygunsuzluk değeri ile yaş aralığı sınıflandırması yapılması.
-  4. Uygulama aracılığıyla kullanıcıya kitap hakkında elde edilen verilerin bildirilmesi.
- ## Projedeki modellerin açıklaması
- 1. Cümlelerin Uygunsuzluklarını ölçmek:
-	 1. **ANN**:
-
-
-
-	![ANN Mimarisi](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ofansif_model.h5.png)
-
+  5. Uygulama aracılığıyla kullanıcıya kitap hakkında elde edilen verilerin bildirilmesi.
   
 ## Veri Seti ve Araçlar
 Kitap Veri Seti Oluşturma Aracı Web Sitesi Linki:
@@ -78,6 +71,33 @@ Yaş Aralığı Sınıflandırma: https://huggingface.co/AbraMuhara/RandomForest
 
 Uygunsuz Cümle Sınıflandırma: https://huggingface.co/AbraMuhara/Fine-TunedBERTURKOfansifTespit
 
+## Modellerin Oluşturulması
+Metinlerin uygunsuzluğunu ölçen model için çeşitli mimariler kullanılmıştır.
+Bunlar:
+
+•ANN:
+Bahsi geçen modellerden ilki olan ve metinlerin uygunsuzluk düzeylerini ölçen model için farklı mimariler kullanan 4 model oluşturulmuştur. Bunlar BERT, BERT-Turkish, RNN ve kendimizin oluşturduğu bir ANN modelidir.
+
+İlk olarak deneme amaçlı bir ANN oluşturup eğiterek %89,42 doğrulukla ve 0.3972 loss ile çalıştığına ulaşıldı. Fakat büyük veya karmaşık bağlamlı metinlerde sorun çıkarttığı için bu model kullanılmamıştır.
+
+![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/ann.png)
+
+•RNN:
+
+Ardından 4 GRU (Geçitli Tekrarlayan Birim) katmanlı bir RNN (Yinelemeli Sinir Ağı) oluşturulmuştur. Optimizasyon algoritması olarak aşırı öğrenmeyi azaltıp daha hızlı ve kararlı öğrenme sağlayan AdamW kullanılmıştır. İlk olarak 4 epoch’a kadar eğitilmiştir. Ardından Early Stopping kullanılmış ve 6. epoch’ta  loss arttığı için eğitim durdurulmuştur. Model %89,83 doğrulukla çalışmaktadır. Ancak BERT ile yapılan model daha yüksek doğrulukla çalıştığı için bu modeli kullanılmamıştır.
+
+![Modelin Hiperparametreleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/rnn.png)
+
+![Çeşitli Epoch Değerlerinde RNN Modelinin Doğruluk Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/accuracy.png)
+
+![Çeşitli Epoch Değerlerinde RNN Modelininin Kayıp Değerleri](https://github.com/Abra-Muhara/kitapmetre-2024AcikHackTDDI/blob/main/additionalImages/loss.png)
+
+•BERT:
+
+•BERT-Turkish:
+
+
+Bu 
 
 Kaynakçalar:
 ATEŞMAN, Ender. (1997). Türkçe’de okunabilirliğin Ölçülmesi. A.Ü. 		 					Tömer Dil Dergisi, sayı:58,s.171-174.
