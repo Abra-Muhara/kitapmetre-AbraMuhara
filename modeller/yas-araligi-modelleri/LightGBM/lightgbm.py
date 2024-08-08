@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report
-rawData = pd.read_excel("/content/Final.xlsx")
+rawData = pd.read_excel("kitap-veri-seti/Final.xlsx")
 encoder=LabelEncoder()
 rawY=rawData["Önerilen Yaş Aralığı"]
 Y=encoder.fit_transform(rawY)
