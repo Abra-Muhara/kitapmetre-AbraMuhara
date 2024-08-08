@@ -39,7 +39,7 @@ def count_syllables(word):
         if char in vowels:
             syllables += 1
     return max(syllables, 1)
-dosya=open("C:/Users/PC/Downloads/analiz1/wetransfer_data_2024-08-01_1437/ofansif.txt","r",encoding='utf-8')
+dosya=open("uygunsuz-kelime-listesi/ofansif.txt","r",encoding='utf-8')
 yasaKelimeler=dosya.read().split('\n')
 # Metni analiz etme fonksiyonu
 def analyze_text(file_path):
