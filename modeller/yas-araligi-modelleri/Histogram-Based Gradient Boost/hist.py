@@ -20,7 +20,7 @@ import joblib
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.experimental import enable_hist_gradient_boosting  # Histogram tabanlı GB'yi etkinleştirin
 from sklearn.ensemble import HistGradientBoostingClassifier
-rawData = pd.read_excel("Final.xlsx")
+rawData = pd.read_excel("kitap-veri-seti/Final.xlsx")
 rawY=rawData["Önerilen Yaş Aralığı"]
 rawX=(rawData.drop("Dosya Adı",axis=1)).drop("Önerilen Yaş Aralığı",axis=1)
 label_encoder = LabelEncoder()
