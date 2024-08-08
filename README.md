@@ -1,6 +1,6 @@
 # kitapmetre-2024AcikHackTDDI
 
-## Bu proje Teknofest Doğal Dil İşleme Yarışması için yapılmıştır.
+## Bu proje TEKNOFEST Doğal Dil İşleme Yarışması için yapılmıştır.
 (https://www.teknofest.org/tr/yarismalar/turkce-dogal-dil-isleme-yarismasi/)
 
 ## Takım Bilgileri:
