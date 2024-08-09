@@ -461,6 +461,12 @@ Projenin sonunda elde ettiğimiz modelin kullanıcıların daha kolay erişilmes
 2. Tabular verilerini elde ettiğiniz kitabınızın yaş aralığını bulmak isterseniz tek yapmanız gereken verilerinizi örnek veri setindeki sütunlar şeklinde sıralamanız ve  (https://abramuhara-fast-api.hf.space/predict-age/) sayfasına parametreniz {'features': list[Float]}
 olacak şekilde göndermenizdir. Cevap olarak {"age_group": yazı şeklinde yaş kategorisi} gönderilecektir.
   
+## Kurulum Rehberi
+Çalıştırmanız tek gereken kod:
+'''python
+pip install -r requirements.txt
+'''
+Sonrasında gui klasöründeki main.py dosyasını çalıştırın
 
 ## Kaynakçalar:
 
