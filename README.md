@@ -463,9 +463,9 @@ olacak şekilde göndermenizdir. Cevap olarak {"age_group": yazı şeklinde yaş
   
 ## Kurulum Rehberi
 Çalıştırmanız tek gereken kod:
-'''python
+```python
 pip install -r requirements.txt
-'''
+```
 Sonrasında gui klasöründeki main.py dosyasını çalıştırın
 
 ## Kaynakçalar:
