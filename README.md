@@ -391,11 +391,11 @@ $206,835 -(AWS ∗1,015)+(ASW ∗8,46)$ (Flesch, 1948)
 
   
 
-*$AWS$ = Cümle başına ortalama kelime sayısı
+*AWS = Cümle başına ortalama kelime sayısı
 
   
 
-*$ASW$ = Kelime başına ortalama hece sayısı
+*ASW = Kelime başına ortalama hece sayısı
 
 ## GUI
 
