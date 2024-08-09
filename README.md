@@ -210,8 +210,14 @@ $206,835 -(AWS ∗1,015)+(ASW ∗8,46)$ (Flesch, 1948)
 
 *$ASW$ = Kelime başına ortalama hece sayısı
 ## GUI
-customtkinter 
+customtkinter: Uygulamamıza modern bir görüntü katan özelleştirilmiş tkinter
 
+Uygulamammızın iki modu vardır: Gece ve Gündüz modu
+Bu iki modun yaptığı arkaplan ve butonların rengini ayarlamasıdır.
+Uygulamamızın sağ alt köşesinde bulunan bilgilendirme butonu, kullanıcının uygulamayı nasıl kullanması gerektiğini ve yapımcısı olan Abra Muhara ekibini gösterir.
+Uygulama ilk açıldığında ortadaki 'Dosya yükle' yazan butona basıldığında bilgisayarımızdan ölçmek istediğimiz kitabı (pdf'yi) seçmemiz istenir.
+Dosya seçildikten sonra kitabın gerekli bilgileri toplanır ve bir tablo haline getirilir.
+Tablo kullanıcıya sunulur ve önerilen yaş aralığı buna göre bildirilir.
 ## Proje Yol Haritası
 Projede oluşturulan modeller FastAPI, Hugging  Face ve Github platformlarına yüklenmiştir. İlerleyen süreçte açık kaynak kodlu olan bu platformlar üzerinden kullanıcılar tarafından geliştirilebilir. Ayrıca proje halk kütüphanelerinde kullanıma sunulabilir.
 
