@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pydantic
+torch
+scikit-learn
+numpy==1.26.4
+transformers
+catboost
+huggingface_hub
+joblib
+fastapi[standard]
