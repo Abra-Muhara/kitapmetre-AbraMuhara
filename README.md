@@ -209,6 +209,8 @@ $206,835 -(AWS ∗1,015)+(ASW ∗8,46)$ (Flesch, 1948)
 *$AWS$ = Cümle başına ortalama kelime sayısı
 
 *$ASW$ = Kelime başına ortalama hece sayısı
+## GUI
+customtkinter 
 
 ## Proje Yol Haritası
 Projede oluşturulan modeller FastAPI, Hugging  Face ve Github platformlarına yüklenmiştir. İlerleyen süreçte açık kaynak kodlu olan bu platformlar üzerinden kullanıcılar tarafından geliştirilebilir. Ayrıca proje halk kütüphanelerinde kullanıma sunulabilir.
