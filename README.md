@@ -184,6 +184,8 @@ Doğrulama Seti Veri Dağılımı
 
 ### Yaş Aralığı Modeli Veri Seti
 
+Yaş Aralığı Veri Seti: https://huggingface.co/datasets/AbraMuhara/TurkishBookAgeDataset
+
 Bir diğer veri seti, kelime listesi ve bir önceki veri setiyle oluşturan model ile sıfırdan oluşturulmuştur.
 
   
