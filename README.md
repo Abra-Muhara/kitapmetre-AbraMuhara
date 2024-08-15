@@ -21,6 +21,8 @@ Takım ID: #561838
 
 Başvuru ID: #2290264
 
+Linkedin: https://www.linkedin.com/company/abra-muhara/
+
 Hugging Face: https://huggingface.co/AbraMuhara
 
 Github: https://github.com/Abra-Muhara
